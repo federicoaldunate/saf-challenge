@@ -27,13 +27,6 @@ ruby bin/console inputs/input3.txt
 bundle exec rspec
 ```
 
-```
-ruby scripts/verify_outputs.rb
-Input 1: ✅ PASS
-Input 2: ✅ PASS
-Input 3: ✅ PASS
-```
-
 ## Assumptions
 
 - Product type (book, food, medical) is inferred from the item name.
