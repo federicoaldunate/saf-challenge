@@ -27,5 +27,14 @@ RSpec.describe Services::CalculateTaxService do
         expect(result).to eq(0.5)
       end
     end
+
+    # from input3
+    context "with several imported food items" do
+      let(:line_item)  { Services::CreateLineItemService.new("3 imported boxes of chocolates at 11.25").call }
+      # 5% tax
+      it "parses the line correctly" do
+        expect(result).to eq(1.8)
+      end
+    end
   end
 end

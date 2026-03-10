@@ -8,11 +8,11 @@ module Models
     end
 
     def total_price
-      @item.price * @quantity
+      unit_price * quantity
     end
 
-    def print
-      puts "#{@quantity} #{@item.name}: #{total_price.round(2)}"
+    def unit_price
+      item.price
     end
   end
 end
