@@ -10,7 +10,7 @@ module Models
     end
 
     def basic_sales_tax?
-      ["book", "food", "medical"].exclude?(@type)
+      !["book", "food", "medical"].include?(@type)
     end
 
     def imported?
