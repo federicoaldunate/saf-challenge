@@ -27,7 +27,7 @@ module Services
       name_part, price_str = rest.split(" at ")
       raise ArgumentError, "Missing price" unless price_str
 
-      price = Float(price_str).round(2)
+      price = BigDecimal(price_str).round(2)
 
       imported = name_part.include?("imported")
       type = infer_type(name_part)

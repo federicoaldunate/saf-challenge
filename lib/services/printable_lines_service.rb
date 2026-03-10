@@ -25,8 +25,8 @@ module Services
 
         print_line_with_tax(line_item, tax_amount)
       end
-      printable_lines <<  "Sales Taxes: #{total_tax.round(2)}" #Rounding shouldn't be needed here, but just in case of floating point issues, we round to 2 decimals
-      printable_lines <<  "Total: #{total_amount.round(2)}" #Rounding shouldn't be needed here, but just in case of floating point issues, we round to 2 decimals
+      printable_lines <<  "Sales Taxes: #{print_money(total_tax)}"
+      printable_lines <<  "Total: #{print_money(total_amount)}" 
 
       printable_lines
     end
@@ -37,7 +37,11 @@ module Services
 
     def print_line_with_tax(line_item, tax_amount)
       total_price_with_tax = line_item.total_price + tax_amount
-      printable_lines << "#{line_item.quantity} #{line_item.item.name}: #{total_price_with_tax.round(2)}"
+      printable_lines << "#{line_item.quantity} #{line_item.item.name}: #{print_money(total_price_with_tax)}"
+    end
+
+    def print_money(amount)
+      sprintf("%.2f", amount)
     end
   end
 end
