@@ -47,11 +47,12 @@ module Services
 
     # this could become a new service, but for simplicity, I'm keeping it here for now
     def infer_type(name_part)
-      if name_part.include?("book")
+      downcased_name = name_part.downcase
+      if downcased_name.include?("book")
         "book"
-      elsif name_part.include?("chocolate") || name_part.include?("food")
+      elsif downcased_name.include?("chocolate") || downcased_name.include?("food")
         "food"
-      elsif name_part.include?("pills") || name_part.include?("medical")
+      elsif downcased_name.include?("pills") || downcased_name.include?("medical")
         "medical"
       else
         "other"
