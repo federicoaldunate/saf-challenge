@@ -6,8 +6,10 @@ module Taxes
       @line_item = line_item
     end
 
+    def rate = RATE
+
     def apply?
-      @line_item.item.imported?
+      @line_item.imported?
     end
   end
 end

@@ -7,8 +7,10 @@ module Taxes
       @line_item = line_item
     end
 
+    def rate = RATE
+
     def apply?
-      !EXEMPT.include?(@line_item.item.type)
+      !EXEMPT.include?(@line_item.type)
     end
   end
 end

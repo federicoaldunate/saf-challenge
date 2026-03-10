@@ -14,5 +14,8 @@ module Models
     def unit_price
       item.price
     end
+
+    def type = item.type
+    def imported? = item.imported?
   end
 end

@@ -1,0 +1,6 @@
+1 bottle of perfume: 11.00
+2 imported box of chocolates: 12.60
+3 book: 9.00
+1 imported laptop: 575.00
+Sales Taxes: 76.60
+Total: 607.60

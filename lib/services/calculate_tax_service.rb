@@ -17,7 +17,8 @@ module Services
     def call
       tax_rate = BigDecimal("0.0")
       TAX_RULES.each do |tax_rule|
-        tax_rate += tax_rule::RATE if tax_rule.new(line_item: line_item).apply?
+        tax_rule_instance = tax_rule.new(line_item: line_item)
+        tax_rate += tax_rule_instance.rate if tax_rule_instance.apply?
       end
       
       round_up_to_nearest_requiered_number(line_item.unit_price * tax_rate) * line_item.quantity
