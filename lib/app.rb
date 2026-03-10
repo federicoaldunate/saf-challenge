@@ -8,16 +8,28 @@ require 'bigdecimal'
 
 $LOAD_PATH.unshift(File.expand_path("../lib", __dir__))
 
-Dir[File.join(__dir__, "../lib/**/*.rb")].sort.each { |f| require f }
+Dir[File.join(__dir__, "../lib/models/**/*.rb")].sort.each { |f| require f }
+Dir[File.join(__dir__, "../lib/taxes/**/*.rb")].sort.each { |f| require f }
+Dir[File.join(__dir__, "../lib/services/**/*.rb")].sort.each { |f| require f }
 
 
 class App
+  def execute(io)
+    line_items = parse(io)
+    print_receipt(line_items)
+  end
+
+  private
+
   def parse(io)
     line_items = []
     io.each_line do |line|
       line_items << Services::CreateLineItemService.new(line).call
     end
+    line_items
+  end
 
+  def print_receipt(line_items)
     printable_lines = Services::PrintableLinesService.new(line_items:).call
 
     printable_lines.each { |line| puts line }

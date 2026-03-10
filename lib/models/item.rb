@@ -9,10 +9,6 @@ module Models
       @imported = imported
     end
 
-    def basic_sales_tax?
-      !["book", "food", "medical"].include?(@type)
-    end
-
     def imported?
       @imported
     end

@@ -4,10 +4,11 @@ module Services
     # Given a line item, calculates the total tax for that line item based on the rules:
     # - Basic sales tax is 10% for all goods except books, food, and medical products
     # - Import duty is an additional 5% for all imported goods
+    # These rules are coded in the Taxes module, so this service is easy to extend.
     # The tax is rounded to the nearest 0.05 and should be added to the total price of the line item
-    BASIC_SALES_TAX     = BigDecimal("0.10")
-    IMPORTED_DUTY       = BigDecimal("0.05")
     TAX_ROUNDING_STEP   = BigDecimal("0.05")
+
+    TAX_RULES = [::Taxes::BasicSalesTax, ::Taxes::ImportedDutyTax]
 
     def initialize(line_item:)
       @line_item = line_item
@@ -15,8 +16,9 @@ module Services
 
     def call
       tax_rate = BigDecimal("0.0")
-      tax_rate += BASIC_SALES_TAX if line_item.item.basic_sales_tax?
-      tax_rate += IMPORTED_DUTY if line_item.item.imported?
+      TAX_RULES.each do |tax_rule|
+        tax_rate += tax_rule::RATE if tax_rule.new(line_item: line_item).apply?
+      end
       
       round_up_to_nearest_requiered_number(line_item.unit_price * tax_rate) * line_item.quantity
     end

@@ -7,8 +7,8 @@ module Services
     # But for simplicity, we can just pass the list of line items directly to this service.
     def initialize(line_items:)
       @line_items = line_items
-      @total_tax = 0.0
-      @total_amount = 0.0
+      @total_tax = BigDecimal("0.0")
+      @total_amount = BigDecimal("0.0")
       @printable_lines = []
     end
 

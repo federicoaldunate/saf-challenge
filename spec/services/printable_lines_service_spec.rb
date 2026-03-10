@@ -29,7 +29,7 @@ RSpec.describe Services::PrintableLinesService do
 
       expect(result).to eq([
         "2 book: 24.98",
-        "Sales Taxes: 0.0",
+        "Sales Taxes: 0.00",
         "Total: 24.98"
       ])
     end
