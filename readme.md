@@ -60,7 +60,12 @@ bundle exec rspec
 
 ## Notes
 
-I'm using BigDecimal to handle money, another way of doing it is creating a class named Money to handle that, or/and using integers as cents. This is because BigDecimal will no longer be part of the default gems since Ruby 3.4.0, so after 3.4.0 is not going to be part of the standard library.
+`BigDecimal` is used for all money arithmetic to avoid floating-point precision errors. Since it is part of Ruby's standard library, it does not violate the constraint against external libraries.
 
-## More tests with the help of LLM
-With the help of AI I added 2 more test cases (inpput 4 & input 5) and verified them manually.
+An alternative approach would be to represent money as integer cents, or to introduce a dedicated `Money` value object to encapsulate operations and formatting. The current solution assumes USD (2 decimal places). Note that some currencies use 4 decimal places and others have no decimals at all.
+
+Worth noting: from Ruby 3.4.0 onwards, `BigDecimal` is no longer a default gem and must be added explicitly to the `Gemfile`. This has been done to remain compliant with the requirement of not using external libraries for the core solution.
+
+## Additional test cases
+
+Two extra test cases (input 4 & input 5) were added to improve coverage and verified manually against the tax rules.
