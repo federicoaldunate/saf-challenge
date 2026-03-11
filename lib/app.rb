@@ -23,8 +23,15 @@ class App
 
   def parse(io)
     line_items = []
+    consecutive_empty = 0
     io.each_line do |line|
-      line_items << Services::CreateLineItemService.new(line).call
+      if line.strip.empty?
+        consecutive_empty += 1
+        break if consecutive_empty >= 2
+      else
+        consecutive_empty = 0
+        line_items << Services::CreateLineItemService.new(line).call
+      end
     end
     line_items
   end
