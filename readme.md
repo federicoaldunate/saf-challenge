@@ -52,6 +52,12 @@ Total: 42.32
 bundle exec rspec
 ```
 
+## Architecture
+
+- **Service objects** handle all business logic (`InterpreterService`, `CalculateTaxService`, etc.), keeping models as plain data containers.
+- **Tax rules** (`Taxes::BasicSalesTax`, `Taxes::ImportedDutyTax`) are isolated classes. Adding a new tax type means adding a new class and registering it in `CalculateTaxService::TAX_RULES` — no existing code needs to change.
+- **Composition over inheritance** throughout. No class inherits behaviour from another. SOLID principles are applied: each class has a single responsibility (SRP), tax rules are open for extension without modifying existing code (OCP), and all tax rule classes are interchangeable because they honour the same interface (LSP).
+
 ## Assumptions
 
 - Product type (book, food, medical) is inferred from the item name.
